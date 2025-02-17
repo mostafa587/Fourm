@@ -14,9 +14,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.urls import path ,include 
 from django.contrib import admin
-from django.urls import path
+from rest_framework import routers # Routers help you automatically generate URL patterns for your API endpoints. Instead of writing a ton of URL rules manually, DRF's router does it for you.
+# router also is a way to directing traffic to the API (view functions)
+router = routers.DefaultRouter() # DefaultRouter is like your personal URL manager. When you register your API viewsets with it, it automatically sets up all the standard routes (like list, retrieve, create, update, delete).
 
-urlpatterns = [
+urlpatterns = router.urls
+
+urlpatterns += [ # += is used to add URLs not to overwrite on urlpatterns
     path('admin/', admin.site.urls),
+    path('', include('boards.urls')),
 ]
